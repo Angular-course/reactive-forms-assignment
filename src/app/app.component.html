@@ -1,20 +1,63 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container">
+    <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+            <form (ngSubmit)="onSubmit()" [formGroup]="signupForm">
+                <div class="form-group">
+                    <label for="projectName" class="required-label">Project Name:</label>
+                    <input type="text"
+                           class="form-control"
+                           id="projectName"
+                           formControlName="projectName">
+                    <div *ngIf="signupForm.get('projectName').invalid && signupForm.get('projectName').touched">
+                        <p class="has-error"
+                           *ngIf="signupForm.get('projectName').errors['required']">
+                            Project name is required!
+                        </p>
+                        <p class="has-error"
+                           *ngIf="signupForm.get('projectName').errors['isForbiddenProjectName']">
+                            Project name already exist, please enter another one.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="required-label">Email:</label>
+                    <input type="text"
+                           class="form-control"
+                           id="email"
+                           formControlName="email">
+                    <div *ngIf="signupForm.get('email').invalid && signupForm.get('email').touched">
+                        <p class="has-error"
+                           *ngIf="signupForm.get('email').errors['required']">
+                            Email address is required!
+                        </p>
+                        <p class="has-error"
+                           *ngIf="signupForm.get('email').errors['email']">
+                            Please enter a valid email address.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="projectStatus">Project Status:</label>
+                    <select class="form-control"
+                            id="projectStatus"
+                            formControlName="projectStatus">
+                        <option *ngFor="let status of projectStatus"
+                                [value]="status">
+                            {{status}}
+                        </option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" type="submit" [disabled]="signupForm.invalid">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="row" *ngIf="submitted">
+        <hr>
+        <div class="col-xs-8 col-xs-offset-2">
+            <h4 class="text-center">Project Data:</h4>
+            <p>Project name: {{projectData.projectName}}</p>
+            <p>Emial: {{projectData.email}}</p>
+            <p>Project status: {{projectData.projectStatus}}</p>
+        </div>
+    </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
